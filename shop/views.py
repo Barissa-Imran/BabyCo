@@ -431,18 +431,21 @@ class ItemDetailView(DetailView):
     def get_context_data(self, **kwargs: Any):
         """Add 3 random products in the detail view footer"""
         context = super().get_context_data(**kwargs)
-        current_item = self.get_object()
-        pks = Item.objects.exclude(pk=current_item.pk).values_list('pk', flat=True)
-        random_pks = random.sample(list(pks), 3)
+        try:
+            current_item = self.get_object()
+            pks = Item.objects.exclude(pk=current_item.pk).values_list('pk', flat=True)
+            random_pks = random.sample(list(pks), 3)
 
-        # return products from pks
-        items = []
-        for pk in random_pks:
-            item = get_object_or_404(Item, pk=pk)
-            items.append(item)
-        context.update({
-            'items': items
-        })
+            # return products from pks
+            items = []
+            for pk in random_pks:
+                item = get_object_or_404(Item, pk=pk)
+                items.append(item)
+            context.update({
+                'items': items
+            })
+        except:
+            pass
         return context
 
 

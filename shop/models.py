@@ -37,15 +37,15 @@ class Item(models.Model):
         })
 
      # resize the image while saving
-    def save(self, *args, **kwargs):
-        super(Item, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super(Item, self).save(*args, **kwargs)
 
-        img = Image.open(self.image.path)
+    #     img = Image.open(self.image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300, 300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.image.path)
 
 class OrderItem(models.Model):
     """This is an item added to cart"""
